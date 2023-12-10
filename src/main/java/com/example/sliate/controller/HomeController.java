@@ -19,7 +19,7 @@ public class HomeController {
     }
 
     @GetMapping()
-    public List<Student> getStudents(){
+    public List<Student> getAllStudents(){
         System.out.println("This is the GET method!");
         return students;
     }
@@ -27,6 +27,12 @@ public class HomeController {
     @DeleteMapping("/{id}")
     public List<Student> deleteStudents(@PathVariable int id){
         students.removeIf(student -> student.getId() == id);
+        return students;
+    }
+
+    @PutMapping()
+    public List<Student> updateStudent(@PathVariable Student student){
+        System.out.println("Student updated!");
         return students;
     }
 
