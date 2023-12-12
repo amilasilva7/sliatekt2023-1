@@ -1,6 +1,8 @@
 package com.example.sliate.controller;
 
 import com.example.sliate.model.Student;
+import com.example.sliate.repositories.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,12 +12,16 @@ import java.util.List;
 @RequestMapping(value = "/api/student")
 public class HomeController {
 
+    @Autowired
+    StudentRepository studentRepository;
+
     List<Student> students = new ArrayList<>();
 
     @PostMapping()
-    public List<Student> createStudent(@RequestBody Student student){
-        students.add(student);
-        return students;
+    public Student createStudent(@RequestBody Student student){
+        studentRepository.saveAndFlush(student);
+        System.out.println("Student " + student.getName() + " saved successfully!");
+        return student;
     }
 
     @GetMapping()
